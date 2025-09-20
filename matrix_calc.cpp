@@ -90,6 +90,31 @@ public:
             cout << "Error: Row and Columns mismateched." << endl;
         }
     }
+
+    void subtractMatrix(Matrix matX)
+    {
+        if (rows == matX.rows && columns == matX.columns)
+        {
+            showMatrix();
+            cout << "   -" << endl;
+            matX.showMatrix();
+            cout << "  ||" << endl;
+
+            for (int i = 0; i < rows; i++)
+            {
+                cout << "[";
+                for (int j = 0; j < columns; j++)
+                {
+                    cout << mat[i][j] - matX.mat[i][j] << ",";
+                }
+                cout << "]" << endl;
+            }
+        }
+        else
+        {
+            cout << "Error: Row and Columns mismateched." << endl;
+        }
+    }
 };
 
 int askMatrixCode() {
@@ -258,6 +283,66 @@ void addTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
     }
 }
 
+void subtractTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
+    cout << "Enter the first matrix code:" << endl;
+    int firstMatrixCode = askMatrixCode();
+
+    cout << "Enter the second matrix code:" << endl;
+    int secondMatrixCode = askMatrixCode();
+
+    if (firstMatrixCode == 0 || secondMatrixCode == 0) {
+        return;
+    }
+    else if (firstMatrixCode == 1 && secondMatrixCode == 1) {
+        a.subtractMatrix(a);
+    }
+    else if (firstMatrixCode == 1 && secondMatrixCode == 2) {
+        a.subtractMatrix(b);
+    }
+    else if (firstMatrixCode == 1 && secondMatrixCode == 3) {
+        a.subtractMatrix(c);
+    }
+    else if (firstMatrixCode == 1 && secondMatrixCode == 4) {
+        a.subtractMatrix(d);
+    }
+    else if (firstMatrixCode == 2 && secondMatrixCode == 1) {
+        b.subtractMatrix(a);
+    }
+    else if (firstMatrixCode == 2 && secondMatrixCode == 2) {
+        b.subtractMatrix(b);
+    }
+    else if (firstMatrixCode == 2 && secondMatrixCode == 3) {
+        b.subtractMatrix(c);
+    }
+    else if (firstMatrixCode == 2 && secondMatrixCode == 4) {
+        b.subtractMatrix(d);
+    }
+    else if (firstMatrixCode == 3 && secondMatrixCode == 1) {
+        c.subtractMatrix(a);
+    }
+    else if (firstMatrixCode == 3 && secondMatrixCode == 2) {
+        c.subtractMatrix(b);
+    }
+    else if (firstMatrixCode == 3 && secondMatrixCode == 3) {
+        c.subtractMatrix(c);
+    }
+    else if (firstMatrixCode == 3 && secondMatrixCode == 4) {
+        c.subtractMatrix(d);
+    }
+    else if (firstMatrixCode == 4 && secondMatrixCode == 1) {
+        d.subtractMatrix(a);
+    }
+    else if (firstMatrixCode == 4 && secondMatrixCode == 2) {
+        d.subtractMatrix(b);
+    }
+    else if (firstMatrixCode == 4 && secondMatrixCode == 3) {
+        d.subtractMatrix(c);
+    }
+    else if (firstMatrixCode == 4 && secondMatrixCode == 4) {
+        d.subtractMatrix(d);
+    }
+}
+
 void intro()
 {
     cout << "__________________________________________" << endl;
@@ -286,7 +371,7 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         addTwoMatrix(a, b, c, d);
         break;
     case 2:
-        cout << "SUBTRACT";
+        subtractTwoMatrix(a, b, c, d);
         break;
     case 3:
         cout << "Multiply";

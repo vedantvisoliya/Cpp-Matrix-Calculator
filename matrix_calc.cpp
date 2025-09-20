@@ -7,13 +7,13 @@ class Matrix
 public:
     int rows;
     int columns;
-    vector<vector<int>> mat;
+    vector<vector<double>> mat;
 
     Matrix(int rows, int columns)
     {
         this->rows = rows;
         this->columns = columns;
-        mat.resize(rows, vector<int>(columns, 0));
+        mat.resize(rows, vector<double>(columns, 0));
     }
 
     void showMatrix()
@@ -46,14 +46,14 @@ public:
 
     void addElements()
     {
-        int elem;
+        double elem;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
                 try
                 {
-                    cout << "Enter the element " << "(" << i+1 << "," << j+1 << ")" << ": ";
+                    cout << "Enter the element " << "(" << i + 1 << "," << j + 1 << ")" << ": ";
                     cin >> elem;
                     mat[i][j] = elem;
                 }
@@ -115,9 +115,31 @@ public:
             cout << "Error: Row and Columns mismateched." << endl;
         }
     }
+
+    void multiplyMatrixByConstant(int constant)
+    {
+        cout << constant << " X " << endl;
+        showMatrix();
+        cout << "   = " << endl;
+
+        for (int i = 0; i < rows; i++)
+        {
+            cout << "[";
+            for (int j = 0; j < columns; j++)
+            {
+                cout << mat[i][j] * constant << ",";
+            }
+            cout << "]" << endl;
+        }
+    }
+
+    void multiplyMatrixByMatrix(Matrix x)
+    {
+    }
 };
 
-int askMatrixCode() {
+int askMatrixCode()
+{
     int inputMatrixCode;
     while (true)
     {
@@ -125,7 +147,8 @@ int askMatrixCode() {
         {
             cout << "[1]Matrix A\n[2]Matrix B\n[3]Matrix C\n[4]Matrix D\n   Enter the number of the matrix: ";
             cin >> inputMatrixCode;
-            if (inputMatrixCode != 1 && inputMatrixCode != 2 && inputMatrixCode != 3 && inputMatrixCode != 4) {
+            if (inputMatrixCode != 1 && inputMatrixCode != 2 && inputMatrixCode != 3 && inputMatrixCode != 4)
+            {
                 cout << "Input Error: matrix code didn't match." << endl;
                 continue;
             }
@@ -162,6 +185,7 @@ vector<int> size_of_matrix()
 
 void createMatrix(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
 {
+    cout << "Select a matrix: " << endl;
     int inputMatrixCode = askMatrixCode();
     vector<int> dimen;
 
@@ -222,124 +246,285 @@ void showStoredMatrices(Matrix a, Matrix b, Matrix c, Matrix d)
     }
 }
 
-
-void addTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
+void addTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d)
+{
     cout << "Enter the first matrix code:" << endl;
     int firstMatrixCode = askMatrixCode();
 
     cout << "Enter the second matrix code:" << endl;
     int secondMatrixCode = askMatrixCode();
 
-    if (firstMatrixCode == 0 || secondMatrixCode == 0) {
+    if (firstMatrixCode == 0 || secondMatrixCode == 0)
+    {
         return;
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 1)
+    {
         a.addMatrix(a);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 2)
+    {
         a.addMatrix(b);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 3)
+    {
         a.addMatrix(c);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 4)
+    {
         a.addMatrix(d);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 1)
+    {
         b.addMatrix(a);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 2)
+    {
         b.addMatrix(b);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 3)
+    {
         b.addMatrix(c);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 4)
+    {
         b.addMatrix(d);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 1)
+    {
         c.addMatrix(a);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 2)
+    {
         c.addMatrix(b);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 3)
+    {
         c.addMatrix(c);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 4)
+    {
         c.addMatrix(d);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 1)
+    {
         d.addMatrix(a);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 2)
+    {
         d.addMatrix(b);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 3)
+    {
         d.addMatrix(c);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 4)
+    {
         d.addMatrix(d);
     }
 }
 
-void subtractTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
+void subtractTwoMatrix(Matrix a, Matrix b, Matrix c, Matrix d)
+{
     cout << "Enter the first matrix code:" << endl;
     int firstMatrixCode = askMatrixCode();
 
     cout << "Enter the second matrix code:" << endl;
     int secondMatrixCode = askMatrixCode();
 
-    if (firstMatrixCode == 0 || secondMatrixCode == 0) {
+    if (firstMatrixCode == 0 || secondMatrixCode == 0)
+    {
         return;
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 1)
+    {
         a.subtractMatrix(a);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 2)
+    {
         a.subtractMatrix(b);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 3)
+    {
         a.subtractMatrix(c);
     }
-    else if (firstMatrixCode == 1 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 1 && secondMatrixCode == 4)
+    {
         a.subtractMatrix(d);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 1)
+    {
         b.subtractMatrix(a);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 2)
+    {
         b.subtractMatrix(b);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 3)
+    {
         b.subtractMatrix(c);
     }
-    else if (firstMatrixCode == 2 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 2 && secondMatrixCode == 4)
+    {
         b.subtractMatrix(d);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 1)
+    {
         c.subtractMatrix(a);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 2)
+    {
         c.subtractMatrix(b);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 3)
+    {
         c.subtractMatrix(c);
     }
-    else if (firstMatrixCode == 3 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 3 && secondMatrixCode == 4)
+    {
         c.subtractMatrix(d);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 1) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 1)
+    {
         d.subtractMatrix(a);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 2) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 2)
+    {
         d.subtractMatrix(b);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 3) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 3)
+    {
         d.subtractMatrix(c);
     }
-    else if (firstMatrixCode == 4 && secondMatrixCode == 4) {
+    else if (firstMatrixCode == 4 && secondMatrixCode == 4)
+    {
         d.subtractMatrix(d);
+    }
+}
+
+void multiplyMatrix(Matrix a, Matrix b, Matrix c, Matrix d)
+{
+    int choice;
+    int constantValue;
+    while (true)
+    {
+        try
+        {
+            cout << "Enter multiply type\n  [0]By Constant\n  [1]By Matrix\n    :";
+            cin >> choice;
+            if (choice == 0)
+            {
+                cout << "Enter the constant value: ";
+                cin >> constantValue;
+            }
+            else if (choice != 1) {
+                continue;
+            }
+            break;
+        }
+        catch (exception e)
+        {
+            cerr << e.what() << '\n';
+        }
+    }
+
+    if (choice == 0)
+    {
+        cout << "Select a matrix for multiply:" << endl;
+        int matrixCode = askMatrixCode();
+
+        if (matrixCode == 1)
+        {
+            a.multiplyMatrixByConstant(constantValue);
+        }
+        else if (matrixCode == 2)
+        {
+            a.multiplyMatrixByConstant(constantValue);
+        }
+        else if (matrixCode == 3)
+        {
+            a.multiplyMatrixByConstant(constantValue);
+        }
+        else if (matrixCode == 4)
+        {
+            a.multiplyMatrixByConstant(constantValue);
+        }
+    }
+    else if (choice == 1)
+    {
+        cout << "Select the first matrix" << endl;
+        int firstMatrixCode = askMatrixCode();
+        cout << "Select the second matrix" << endl;
+        int secondMatrixCode = askMatrixCode();
+
+        if (firstMatrixCode == 0 || secondMatrixCode == 0)
+        {
+            return;
+        }
+        else if (firstMatrixCode == 1 && secondMatrixCode == 1)
+        {
+            a.multiplyMatrixByMatrix(a);
+        }
+        else if (firstMatrixCode == 1 && secondMatrixCode == 2)
+        {
+            a.multiplyMatrixByMatrix(b);
+        }
+        else if (firstMatrixCode == 1 && secondMatrixCode == 3)
+        {
+            a.multiplyMatrixByMatrix(c);
+        }
+        else if (firstMatrixCode == 1 && secondMatrixCode == 4)
+        {
+            a.multiplyMatrixByMatrix(d);
+        }
+        else if (firstMatrixCode == 2 && secondMatrixCode == 1)
+        {
+            b.multiplyMatrixByMatrix(a);
+        }
+        else if (firstMatrixCode == 2 && secondMatrixCode == 2)
+        {
+            b.multiplyMatrixByMatrix(b);
+        }
+        else if (firstMatrixCode == 2 && secondMatrixCode == 3)
+        {
+            b.multiplyMatrixByMatrix(c);
+        }
+        else if (firstMatrixCode == 2 && secondMatrixCode == 4)
+        {
+            b.multiplyMatrixByMatrix(d);
+        }
+        else if (firstMatrixCode == 3 && secondMatrixCode == 1)
+        {
+            c.multiplyMatrixByMatrix(a);
+        }
+        else if (firstMatrixCode == 3 && secondMatrixCode == 2)
+        {
+            c.multiplyMatrixByMatrix(b);
+        }
+        else if (firstMatrixCode == 3 && secondMatrixCode == 3)
+        {
+            c.multiplyMatrixByMatrix(c);
+        }
+        else if (firstMatrixCode == 3 && secondMatrixCode == 4)
+        {
+            c.multiplyMatrixByMatrix(d);
+        }
+        else if (firstMatrixCode == 4 && secondMatrixCode == 1)
+        {
+            d.multiplyMatrixByMatrix(a);
+        }
+        else if (firstMatrixCode == 4 && secondMatrixCode == 2)
+        {
+            d.multiplyMatrixByMatrix(b);
+        }
+        else if (firstMatrixCode == 4 && secondMatrixCode == 3)
+        {
+            d.multiplyMatrixByMatrix(c);
+        }
+        else if (firstMatrixCode == 4 && secondMatrixCode == 4)
+        {
+            d.multiplyMatrixByMatrix(d);
+        }
     }
 }
 
@@ -355,13 +540,15 @@ void intro()
 void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
 {
     int oper_num;
-    try {
+    try
+    {
         cout << "What operation do you want to perform?" << endl;
         cout << "operations:\n    [1]Add\n    [2]Subtract\n    [3]Multiply\n    [4]Power\n    [5]Inverse\n    [6]Determinant\n    [7]Store Matrix\n    [8]Show Stored Matrix\n  :";
         cin >> oper_num;
     }
-    catch (exception e) {
-        cout << e.what() << endl; 
+    catch (exception e)
+    {
+        cout << e.what() << endl;
         return;
     }
 
@@ -374,7 +561,7 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         subtractTwoMatrix(a, b, c, d);
         break;
     case 3:
-        cout << "Multiply";
+        multiplyMatrix(a, b, c, d);
         break;
     case 4:
         cout << "Power";
@@ -418,10 +605,12 @@ int main()
         cout << "Do you want to exit, type y: ";
         cin >> exitChoice;
 
-        if (exitChoice == 'y' || exitChoice == 'Y') {
+        if (exitChoice == 'y' || exitChoice == 'Y')
+        {
             exit = !exit;
         }
-        else {
+        else
+        {
             continue;
         }
     }

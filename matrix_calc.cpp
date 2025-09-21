@@ -135,6 +135,23 @@ public:
 
     void multiplyMatrixByMatrix(Matrix x)
     {
+        if (columns == x.rows){
+            double multiplyValue = 0;
+            for (int i = 0; i < rows; i++) {
+                cout << "[";
+                for (int k = 0; k < x.columns; k++) {
+                    for (int j = 0; j < columns; j++) {
+                        multiplyValue += mat[i][j] * x.mat[j][k];
+                    }
+                    cout << multiplyValue << ",";
+                    multiplyValue = 0;
+                }
+                cout << "]" << endl; 
+            }
+        }
+        else {
+            cerr << "Error: columns and row mismatched." << endl;
+        }
     }
 };
 
@@ -543,7 +560,7 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
     try
     {
         cout << "What operation do you want to perform?" << endl;
-        cout << "operations:\n    [1]Add\n    [2]Subtract\n    [3]Multiply\n    [4]Power\n    [5]Inverse\n    [6]Determinant\n    [7]Store Matrix\n    [8]Show Stored Matrix\n  :";
+        cout << "operations:\n    [1]Add\n    [2]Subtract\n    [3]Multiply\n    [4]Power\n    [5]Inverse\n    [6]Determinant\n    [7]Store Matrix\n    [8]Show Stored Matrix\n    [9]Transpose\n  :";
         cin >> oper_num;
     }
     catch (exception e)
@@ -577,6 +594,8 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         break;
     case 8:
         showStoredMatrices(a, b, c, d);
+        break;
+    case 9:
         break;
     default:
         cout << "Error: Invalid Input " << oper_num << endl;

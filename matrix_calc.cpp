@@ -189,6 +189,16 @@ public:
             cerr << e.what() << endl;
         }
     }
+
+    void transpose() {
+        Matrix m = Matrix(rows, columns);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                m.addSingleElement(j, i, mat[i][j]);
+            }
+        }
+        m.showMatrix();
+    }
 };
 
 int askMatrixCode()
@@ -654,7 +664,29 @@ void powerOfMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
             matX.showMatrix();
         }
     }
+}
 
+void transposeOfMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
+    int matrixCode = askMatrixCode();
+
+    switch (matrixCode)
+    {
+    case 1:
+        a.transpose();
+        break;
+    case 2:
+        b.transpose();
+        break;
+    case 3:
+        c.transpose();
+        break;
+    case 4:
+        d.transpose();
+        break; 
+    default:
+        cerr << "Error: Something went wrong" << endl;
+        break;
+    }
 }
 
 void intro()
@@ -696,10 +728,10 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         powerOfMatrix(a, b, c, d);
         break;
     case 5:
-        cout << "Inverse";
+        cout << "Not coded yet(Inverse)";
         break;
     case 6:
-        cout << "Determinant";
+        cout << "Not coded yet(Determinant)";
         break;
     case 7:
         createMatrix(a, b, c, d);
@@ -708,6 +740,7 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         showStoredMatrices(a, b, c, d);
         break;
     case 9:
+        transposeOfMatrix(a, b, c, d);
         break;
     default:
         cout << "Error: Invalid Input " << oper_num << endl;

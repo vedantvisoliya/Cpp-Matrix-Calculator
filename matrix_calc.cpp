@@ -153,6 +153,18 @@ public:
             cerr << "Error: columns and row mismatched." << endl;
         }
     }
+
+    void addSingleElement(int index1, int index2, double elem) {       
+        try
+        {
+            mat[index1][index2] = elem;
+        }
+        catch (exception e)
+        {
+            cerr << e.what() << endl;
+        }
+        cout << "Elements added" << endl;
+    }
 };
 
 int askMatrixCode()

@@ -4,7 +4,7 @@ A simple Matrix Solver built in C++ that supports storing and performing various
 ---
 ## ✨ Features
 
-1. Matrix Storage
+### 1. Matrix Storage
 
     A. Store and manage up to 4 matrices (A, B, C, D).
 
@@ -24,7 +24,7 @@ A simple Matrix Solver built in C++ that supports storing and performing various
 
     I. Power of a matrix
 
-2. Planned Features (Future Work)
+### 2. Planned Features (Future Work)
 
     A. Determinant calculation
 

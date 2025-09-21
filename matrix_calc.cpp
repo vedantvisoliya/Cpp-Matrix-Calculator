@@ -136,22 +136,47 @@ public:
     void multiplyMatrixByMatrix(Matrix x)
     {
         if (columns == x.rows){
+            Matrix temp = Matrix(columns,x.rows);
             double multiplyValue = 0;
+
             for (int i = 0; i < rows; i++) {
-                cout << "[";
                 for (int k = 0; k < x.columns; k++) {
                     for (int j = 0; j < columns; j++) {
                         multiplyValue += mat[i][j] * x.mat[j][k];
                     }
-                    cout << multiplyValue << ",";
+                    temp.addSingleElement(i, k, multiplyValue);
                     multiplyValue = 0;
                 }
-                cout << "]" << endl; 
+            }
+
+            temp.showMatrix();
+        }
+        else {
+            cerr << "Error: columns and row mismatched." << endl;
+        }
+    }
+
+    Matrix multiplyMatrixByMatrixNonPrint(Matrix x)
+    {
+        Matrix temp = Matrix(columns,x.rows);
+        if (columns == x.rows){
+            double multiplyValue = 0;
+
+            for (int i = 0; i < rows; i++) {
+                for (int k = 0; k < x.columns; k++) {
+                    for (int j = 0; j < columns; j++) {
+                        multiplyValue += mat[i][j] * x.mat[j][k];
+                    }
+                    temp.addSingleElement(i, k, multiplyValue);
+                    multiplyValue = 0;
+                }
             }
         }
         else {
             cerr << "Error: columns and row mismatched." << endl;
         }
+
+        return temp;
     }
 
     void addSingleElement(int index1, int index2, double elem) {       
@@ -163,7 +188,6 @@ public:
         {
             cerr << e.what() << endl;
         }
-        cout << "Elements added" << endl;
     }
 };
 
@@ -557,6 +581,82 @@ void multiplyMatrix(Matrix a, Matrix b, Matrix c, Matrix d)
     }
 }
 
+void powerOfMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
+    unsigned int power;
+    int matrixCode = askMatrixCode();
+    Matrix matX = Matrix(0,0);
+    Matrix temp = Matrix(0,0);
+
+    switch (matrixCode)
+    {
+    case 1:
+        matX = Matrix(a.rows, a.columns);
+        matX = a;
+        temp = Matrix(a.rows, a.columns);
+        temp = a;
+        break;
+    case 2:
+        matX = Matrix(b.rows, b.columns);
+        matX = b;
+        temp = Matrix(b.rows, b.columns);
+        temp = b;
+        break;
+    case 3:
+        matX = Matrix(c.rows, c.columns);
+        matX = c;
+        temp = Matrix(c.rows, c.columns);
+        temp = c;
+        break;
+    case 4:
+        matX = Matrix(d.rows, d.columns);
+        matX = d;
+        temp = Matrix(d.rows, d.columns);
+        temp = d;
+        break;
+    
+    default:
+        break;
+    }
+
+    while(true) {
+        try 
+        {
+            cout << "Enter the power(non-negative): ";
+            cin >> power;
+            break;
+        }
+        catch (exception e)
+        {
+            cerr << e.what() << endl;
+        }
+    }
+
+    if (power == 0) {
+        for (int i = 0; i < matX.rows; i++) {
+            for (int j = 0; j < matX.columns; j++) {
+                if (i == j) {
+                    matX.addSingleElement(i, j, 1);
+                }
+                else {
+                    matX.addSingleElement(i, j, 0);
+                }
+            }
+        }
+        matX.showMatrix();
+        return;
+    }
+    else if (power == 1) {
+        temp.showMatrix();
+    }
+    else {
+        for (int i = 1; i < power; i++) {
+            matX = matX.multiplyMatrixByMatrixNonPrint(temp);
+            matX.showMatrix();
+        }
+    }
+
+}
+
 void intro()
 {
     cout << "__________________________________________" << endl;
@@ -593,7 +693,7 @@ void operations(Matrix &a, Matrix &b, Matrix &c, Matrix &d)
         multiplyMatrix(a, b, c, d);
         break;
     case 4:
-        cout << "Power";
+        powerOfMatrix(a, b, c, d);
         break;
     case 5:
         cout << "Inverse";

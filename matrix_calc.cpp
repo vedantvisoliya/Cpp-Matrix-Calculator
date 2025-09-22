@@ -661,8 +661,8 @@ void powerOfMatrix(Matrix a, Matrix b, Matrix c, Matrix d) {
     else {
         for (int i = 1; i < power; i++) {
             matX = matX.multiplyMatrixByMatrixNonPrint(temp);
-            matX.showMatrix();
         }
+        matX.showMatrix();
     }
 }
 
